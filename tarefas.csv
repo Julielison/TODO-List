@@ -1,4 +1,4 @@
 nome,descricao,dataTermino,prioridade,categoria,status
-Teste,descrição,2020-10-23,1,lista,DOING
+,,2020-02-02,2,nova,TODO
 ,,2020-02-02,2,,TODO
 ,,2020-02-02,2,lista,TODO

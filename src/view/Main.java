@@ -188,8 +188,26 @@ public class Main {
 
                 case 7:
                     // Atualizar Tarefa
+
+                    int idx = -1;
                     System.out.print("Informe o índice da tarefa a atualizar: ");
-                    int idx = Integer.parseInt(scanner.nextLine());
+
+
+                    while (true) {
+                        try {
+                            idx = Integer.parseInt(scanner.nextLine());
+
+                            // Verifica se o índice está dentro do intervalo válido
+                            if (idx >= 0 && idx < tarefasCarregadas.size()) {
+                                break; // Se for válido, sai do loop
+                            } else {
+                                System.out.println("Índice inválido! Digite um número entre 0 e " + (tarefasCarregadas.size() - 1));
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Entrada inválida! Digite um número inteiro.");
+                        }
+                    }
+
                     System.out.println("Insira os novos dados da tarefa:");
 
                     System.out.print("Nome: ");

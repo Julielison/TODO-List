@@ -198,12 +198,10 @@ public class Main {
                     System.out.print("Descrição: ");
                     String novaDescricao = scanner.nextLine();
 
-                    System.out.print("Data de término (YYYY-MM-DD): ");
-
                     LocalDate novaDataTermino = null;
 
                     while (novaDataTermino == null) {
-                        System.out.print("Digite a data (YYYY-MM-DD): ");
+                        System.out.print("Data de término (YYYY-MM-DD): ");
                         String entrada = scanner.nextLine();
                         novaDataTermino = ValidadorDataUtil.validarData(entrada);
 
@@ -230,8 +228,17 @@ public class Main {
                     System.out.print("Categoria: ");
                     String novaCategoria = scanner.nextLine();
 
-                    System.out.print("Status (TODO, DOING, DONE): ");
-                    Status novoStatus = Status.valueOf(scanner.nextLine().toUpperCase());
+                    Status novoStatus = null;
+
+                    while (novoStatus == null) {
+                        System.out.print("Status (TODO, DOING, DONE): ");
+                        String entrada = scanner.nextLine();
+                        novoStatus = ValidadorStatus.validarStatus(entrada);
+
+                        if (novoStatus == null) {
+                            System.out.println("❌ Status inválido! Escolha entre: TODO, DOING, DONE.");
+                        }
+                    }
 
                     Tarefa tarefaAtualizada = new Tarefa(novoNome, novaDescricao, novaDataTermino, novaPrioridade, novaCategoria, novoStatus);
                     if (gerenciador.atualizarTarefa(idx, tarefaAtualizada)) {

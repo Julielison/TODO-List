@@ -40,17 +40,18 @@ Este é um projeto simples de um gerenciador de tarefas (TODO List) desenvolvido
 1. **Clone o repositório**
    ```sh
    git clone https://github.com/Julielison/TODO-List.git
-   cd todo-list-java
    ```
+   navegue até a pasta TODO-List
+
 
 2. **Compile o projeto**
    ```sh
-   javac -d bin src/view/Main.java
+   javac -d out src/*/*.java
    ```
 
 3. **Execute o programa**
    ```sh
-   java -cp bin view.Main
+   java -cp out view.Main
    ```
 
 ## 📖 Como Usar
@@ -81,11 +82,5 @@ Se quiser contribuir, siga os passos:
 4. Envie para o repositório (`git push origin feature/minha-feature`)
 5. Abra um Pull Request
 
-## 📄 Licença
 
-Este projeto está sob a licença MIT. Sinta-se à vontade para usá-lo e modificá-lo conforme necessário.
-
----
-
-💡 **Dica:** Se quiser aprimorar o projeto, você pode adicionar uma interface gráfica com JavaFX ou armazenar os dados em um banco de dados como SQLite ou MySQL!
 

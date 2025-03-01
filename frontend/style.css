@@ -1,0 +1,129 @@
+/* Reset básico e fontes */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+ 
+  header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  nav {
+    margin: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  button {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  /* Estilização da tabela de tarefas */
+  table {
+    width: 90%;
+    margin: 1rem auto;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  /* Estilização do Modal */
+  .modal {
+    display: none; /* oculto por padrão */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 1rem;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+  }
+  
+  .close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .modal-actions {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+
+#nav-options{
+    width: 90%;
+    margin: 1rem auto;
+}
+
+#filter-status{
+    width: 80px;
+    height: 30px;
+}
+
+
+/* Modal */
+#task-form{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.block {
+    display: flex;
+    flex-direction: column;
+}
+
+.block-inline{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+#task-desc {
+    resize: none;
+    height: 60px;
+    font-size: large;
+}
+
+.field{
+    height: 20px;
+}
+
+.text {
+    font-size: medium;
+}
+#task-date, #task-status, #task-priority{
+    height: 25px;
+}

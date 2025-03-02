@@ -22,6 +22,10 @@ export function updateTask(id, name, description, dueDate, priority, category, s
   }
 }
 
+export function setEditingTaskId(id) {
+  editingTaskId = id;
+}
+
 export function removeTask(id) {
   const index = tasks.findIndex(t => t.id === id);
   if (index > -1) {

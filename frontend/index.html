@@ -10,16 +10,35 @@
     <h1>Todo List</h1>
   </header>
   <nav id="nav-options">
-    <!-- Menu simples -->
     <button id="btn-add">Adicionar Tarefa</button>
-      <label for="filter-status"><b>Filtrar por: </b></label>
-      <select id="filter-status">
-      <option value="all">TODOS</option>
-      <option value="todo">TODO</option>
-      <option value="doing">DOING</option>
-      <option value="done">DONE</option>
+
+    <!-- Filtro por Status -->
+    <label for="filter-status"><b>Filtrar por Status: </b></label>
+    <select id="filter-status">
+        <option value="all">TODOS</option>
+        <option value="todo">TODO</option>
+        <option value="doing">DOING</option>
+        <option value="done">DONE</option>
+    </select>
+
+    <!-- Filtro por Categoria -->
+    <label for="filter-category"><b>Filtrar por Categoria: </b></label>
+    <select id="filter-category">
+        <option value="all">TODAS</option>
+    </select>
+
+    <!-- Filtro por Prioridade -->
+    <label for="filter-priority"><b>Filtrar por Prioridade: </b></label>
+    <select id="filter-priority">
+        <option value="all">TODAS</option>
+        <option value="5">5</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
     </select>
   </nav>
+
   <main>
     <!-- Tabela de listagem de tarefas -->
     <table id="tasks-table">
@@ -63,9 +82,9 @@
             <div class="block">
                 <label for="task-status">Status:</label>
                 <select id="task-status" name="task-status" required>
-                  <option value="todo">TODO</option>
-                  <option value="doing">DOING</option>
-                  <option value="done">DONE</option>
+                  <option value="TODO">TODO</option>
+                  <option value="DOING">DOING</option>
+                  <option value="DOING">DONE</option>
                 </select>
             </div>
             <div class="block">

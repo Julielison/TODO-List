@@ -1,4 +1,4 @@
-import { tasks, editingTaskId, addTask, updateTask, removeTask } from "./taskManager.js";
+import { tasks, editingTaskId, addTask, updateTask, removeTask, setEditingTaskId } from "./taskManager.js";
 
 // Seleção dos elementos do DOM
 const modal = document.getElementById('modal');
@@ -34,21 +34,27 @@ export function renderTasks() {
   if (statusFilter !== 'all') {
     filteredTasks = tasks.filter(task => task.status === statusFilter);
   }
+  
 
   // Ordena as tarefas pela prioridade (maior primeiro)
   filteredTasks.sort((a, b) => b.priority - a.priority);
 
   filteredTasks.forEach(task => {
-    const maxLength = 50; // Limite de caracteres para descrição
+    const maxLength = 50; 
+
     let shortDescription = task.description;
     if (shortDescription.length > maxLength) {
       shortDescription = shortDescription.substring(0, maxLength) + "...";
     }
+
+    const [year, month, day] = task.dueDate.split("-");
+    const dateFormated = `${day}/${month}/${year}`;
+
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${task.name}</td>
       <td title="${task.description}">${shortDescription}</td>
-      <td>${task.dueDate}</td>
+      <td>${dateFormated}</td>
       <td>${task.priority}</td>
       <td>${task.category}</td>
       <td>${task.status}</td>
@@ -101,7 +107,7 @@ export function registerDOMEvents() {
 window.editTask = function(id) {
   const task = tasks.find(t => t.id === id);
   if (task) {
-    editingTaskId = id;
+    setEditingTaskId(id);
     document.getElementById('task-name').value = task.name;
     document.getElementById('task-desc').value = task.description;
     document.getElementById('task-date').value = task.dueDate;

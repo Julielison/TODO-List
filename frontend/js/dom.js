@@ -9,8 +9,42 @@ const closeSpan = document.querySelector('.close');
 const taskForm = document.getElementById('task-form');
 const tasksTableBody = document.querySelector('#tasks-table tbody');
 const filterStatus = document.getElementById('filter-status');
+const filterCategory = document.getElementById('filter-category');
+const filterPriority = document.getElementById('filter-priority');
+const editFilterCategory = document.getElementById('categories');
 
-// Abre ou fecha o modal
+export function insertCategories(){
+  const maxCategoryLength = 15;
+
+  // Limpa as opções para evitar duplicações
+  filterCategory.innerHTML = '<option value="all">TODAS</option>';
+  editFilterCategory.innerHTML = '';
+
+  // Armazena categorias únicas
+  const uniqueCategories = new Set(tasks.map(task => task.category));
+
+  uniqueCategories.forEach(category => {
+    let shortCategory = category.length > maxCategoryLength 
+        ? category.substring(0, maxCategoryLength) + "..." 
+        : category;
+
+    // Cria nova opção para filtro de categoria
+    const newOption1 = document.createElement('option');
+    newOption1.value = category;
+    newOption1.textContent = shortCategory;
+    newOption1.title = category;
+    filterCategory.appendChild(newOption1);
+
+    // Cria nova opção para edição de categoria
+    const newOption2 = document.createElement('option');
+    newOption2.value = category;
+    newOption2.textContent = shortCategory;
+    newOption2.title = category;
+    editFilterCategory.appendChild(newOption2);
+  });
+}
+
+
 export function openModal(editing = false) {
   modal.style.display = 'block';
   if (editing) {
@@ -25,38 +59,58 @@ export function closeModal() {
   modal.style.display = 'none';
 }
 
-// Renderiza a lista de tarefas na tabela
 export function renderTasks() {
   tasksTableBody.innerHTML = '';
 
-  const statusFilter = filterStatus.value;
+  // Obtém os valores dos filtros
+  const statusFilterValue = filterStatus.value;
+  const categoryFilterValue = filterCategory.value;
+  const priorityFilterValue = filterPriority.value;
+
+  // Filtra as tarefas conforme os filtros aplicados
   let filteredTasks = tasks;
-  if (statusFilter !== 'all') {
-    filteredTasks = tasks.filter(task => task.status === statusFilter);
+  if (statusFilterValue !== 'all') {
+    filteredTasks = filteredTasks.filter(task => task.status === statusFilterValue);
   }
-  
+  if (categoryFilterValue !== 'all') {
+    filteredTasks = filteredTasks.filter(task => task.category === categoryFilterValue);
+  }
+  if (priorityFilterValue !== 'all') {
+    // Converte a prioridade para string para comparação, pois o valor vem do select
+    filteredTasks = filteredTasks.filter(task => task.priority.toString() === priorityFilterValue);
+  }
 
   // Ordena as tarefas pela prioridade (maior primeiro)
   filteredTasks.sort((a, b) => b.priority - a.priority);
 
-  filteredTasks.forEach(task => {
-    const maxLength = 50; 
+  // Renderiza cada tarefa na tabela
+    filteredTasks.forEach(task => {
+      const maxLength = 50;
+      const maxNameLength = 20;
+      const maxCategoryLength = 15;
 
-    let shortDescription = task.description;
-    if (shortDescription.length > maxLength) {
-      shortDescription = shortDescription.substring(0, maxLength) + "...";
-    }
+      let shortDescription = task.description.length > maxLength 
+          ? task.description.substring(0, maxLength) + "..."
+          : task.description;
+
+      let shortName = task.name.length > maxNameLength
+          ? task.name.substring(0, maxNameLength) + "..."
+          : task.name;
+
+      let shortCategory = task.category.length > maxCategoryLength
+          ? task.category.substring(0, maxCategoryLength) + "..."
+          : task.category;
 
     const [year, month, day] = task.dueDate.split("-");
     const dateFormated = `${day}/${month}/${year}`;
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td>${task.name}</td>
+      <td>${shortName}</td>
       <td title="${task.description}">${shortDescription}</td>
       <td>${dateFormated}</td>
       <td>${task.priority}</td>
-      <td>${task.category}</td>
+      <td>${shortCategory}</td>
       <td>${task.status}</td>
       <td>
         <button onclick="editTask(${task.id})">Editar</button>
@@ -67,12 +121,13 @@ export function renderTasks() {
   });
 }
 
-// Registra eventos dos elementos do DOM
 export function registerDOMEvents() {
   btnAdd.addEventListener('click', () => openModal());
   btnCancel.addEventListener('click', closeModal);
   closeSpan.addEventListener('click', closeModal);
   filterStatus.addEventListener('change', renderTasks);
+  filterCategory.addEventListener('change', renderTasks);
+  filterPriority.addEventListener('change', renderTasks);
 
   // Evento para envio do formulário
   taskForm.addEventListener('submit', function(event) {
@@ -91,8 +146,17 @@ export function registerDOMEvents() {
       updateTask(editingTaskId, name, description, dueDate, priority, category, status);
     }
 
+    // Adiciona nova categoria ao filtro caso não exista
+    if (!Array.from(filterCategory.options).some(option => option.value === category)) {
+      const newOption = document.createElement("option");
+      newOption.value = category;
+      newOption.textContent = category;
+      filterCategory.appendChild(newOption);
+    }
+    
     renderTasks();
     closeModal();
+    insertCategories();
   });
 
   // Fecha o modal ao clicar fora dele
@@ -103,7 +167,6 @@ export function registerDOMEvents() {
   };
 }
 
-// Expor funções para edição e remoção no escopo global
 window.editTask = function(id) {
   const task = tasks.find(t => t.id === id);
   if (task) {

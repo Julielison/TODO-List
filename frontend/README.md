@@ -1,4 +1,4 @@
-# Todo List Front-end
+# Todo List - Gerenciador de Tarefas - Front-end
 
 ## 📌 Descrição
 Este é um aplicativo de lista de tarefas desenvolvido em HTML, CSS e JavaScript. Ele permite que os usuários adicionem, editem, filtrem e excluam tarefas com diferentes status, prioridades e categorias.

@@ -119,6 +119,7 @@ export function renderTasks() {
     `;
     tasksTableBody.appendChild(tr);
   });
+  insertCategories();
 }
 
 export function registerDOMEvents() {
@@ -156,7 +157,6 @@ export function registerDOMEvents() {
     
     renderTasks();
     closeModal();
-    insertCategories();
   });
 
   // Fecha o modal ao clicar fora dele
